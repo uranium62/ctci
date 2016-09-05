@@ -74,3 +74,21 @@ func TestList_DeleteNode(t *testing.T) {
 	}
 
 }
+
+func TestList_Partition(t *testing.T) {
+	cases := []struct {
+		input  *List
+		expect *List
+	}{
+		{NewList([]int{3, 7, 2, 3, 4, 5, 8, 1, 6, 9}),
+			NewList([]int{9, 8, 6, 1, 5, 4, 3, 2, 7, 3})},
+	}
+
+	for _, it := range cases {
+		it.input.Partition(8)
+
+		if !it.input.Equals(it.expect) {
+			t.Errorf("Partition: input %q, not equals expect %q", it.input, it.expect)
+		}
+	}
+}

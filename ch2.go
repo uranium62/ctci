@@ -126,3 +126,31 @@ func (l *List) DeleteNode(n *Node) bool {
 	n.Next = n.Next.Next
 	return true
 }
+
+func (l *List) Partition(v int) {
+	before := &List{}
+	after := &List{}
+
+	for e := l.Head; e != nil; {
+		next := e.Next
+		if e.Value < v {
+			e.Next = before.Head
+			before.Head = e
+		} else {
+			e.Next = after.Head
+			after.Head = e
+		}
+		e = next
+	}
+
+	if before == nil {
+		l.Head = after.Head
+		return
+	}
+	l.Head = before.Head
+	e := l.Head
+	for e.Next != nil {
+		e = e.Next
+	}
+	e.Next = after.Head
+}
